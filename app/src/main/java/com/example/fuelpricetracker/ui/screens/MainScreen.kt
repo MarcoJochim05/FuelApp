@@ -21,6 +21,7 @@ import com.example.fuelpricetracker.R
 import com.example.fuelpricetracker.domain.models.FuelStation
 import com.example.fuelpricetracker.domain.models.FuelType
 import com.example.fuelpricetracker.ui.FuelUiState
+import androidx.compose.material.icons.filled.Search
 import com.example.fuelpricetracker.ui.FuelViewModel
 
 /**
@@ -40,7 +41,9 @@ fun MainScreen(viewModel: FuelViewModel = viewModel()) {
             onLocationUpdate = viewModel::updateLocation,
             onRadiusUpdate = viewModel::updateSearchRadius,
             onSortByPriceUpdate = viewModel::updateSortByPrice,
-            onPermissionUpdate = viewModel::updateLocationPermission
+            onPermissionUpdate = viewModel::updateLocationPermission,
+            address = uiState.address,
+            onAddressUpdate = viewModel::updateAddress
         )
         
         when {
@@ -66,7 +69,9 @@ fun LocationSelector(
     onLocationUpdate: (Double, Double) -> Unit,
     onRadiusUpdate: (Int) -> Unit,
     onSortByPriceUpdate: (Boolean) -> Unit,
-    onPermissionUpdate: (Boolean) -> Unit
+    onPermissionUpdate: (Boolean) -> Unit,
+    address: String = "",
+    onAddressUpdate: (String) -> Unit = {}
 ) {
     Card(
         modifier = Modifier
@@ -81,45 +86,42 @@ fun LocationSelector(
             
             Spacer(modifier = Modifier.height(8.dp))
             
-            // Location permission request
-            if (!hasLocationPermission) {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Text(
-                        text = stringResource(R.string.location_permission_needed),
-                        style = MaterialTheme.typography.bodyMedium,
-                        modifier = Modifier.weight(1f)
+            // Address input field
+            Column {
+                Text(
+                    text = "Enter Address",
+                    style = MaterialTheme.typography.bodyMedium
+                )
+                
+                Spacer(modifier = Modifier.height(4.dp))
+                
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    OutlinedTextField(
+                        value = address,
+                        onValueChange = onAddressUpdate,
+                        placeholder = { Text("e.g. Berlin, Munich, Hamburg") },
+                        modifier = Modifier.weight(1f),
+                        singleLine = true
                     )
                     
                     Spacer(modifier = Modifier.width(8.dp))
                     
-                    Button(
-                        onClick = { 
-                            // In a real app, this would request the permission
-                            // For this example, we'll just simulate granting it
-                            onPermissionUpdate(true)
+                    IconButton(
+                        onClick = {
+                            // Search with the current address
+                            if (address.isNotEmpty()) {
+                                onAddressUpdate(address)
+                            }
                         }
                     ) {
-                        Text(stringResource(R.string.grant_permission))
+                        Icon(Icons.Filled.LocationOn, contentDescription = "Search")
                     }
                 }
-            } else {
-                Button(
-                    onClick = { 
-                        // In a real app, this would get the current location
-                        // For this example, we'll just use Berlin coordinates
-                        onLocationUpdate(52.520008, 13.404954)
-                    },
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        Icon(Icons.Filled.LocationOn, contentDescription = null)
-                        Spacer(modifier = Modifier.width(8.dp))
-                        Text(stringResource(R.string.current_location))
-                    }
-                }
+                
+                Text(
+                    text = "Try: Berlin, Munich, Hamburg, Cologne, Frankfurt",
+                    style = MaterialTheme.typography.bodySmall
+                )
             }
             
             Spacer(modifier = Modifier.height(16.dp))

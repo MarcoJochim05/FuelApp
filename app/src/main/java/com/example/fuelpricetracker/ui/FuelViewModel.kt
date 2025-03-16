@@ -120,6 +120,29 @@ class FuelViewModel : ViewModel() {
     fun updateLocationPermission(hasPermission: Boolean) {
         _uiState.update { it.copy(hasLocationPermission = hasPermission) }
     }
+    
+    /**
+     * Updates the address and converts it to coordinates
+     * For this example, we're using a simple approach without actual geocoding
+     */
+    fun updateAddress(address: String) {
+        _uiState.update { it.copy(address = address) }
+        
+        // In a real app, this would use Android's Geocoder to convert the address to coordinates
+        // For this example, we'll use some predefined locations based on simple string matching
+        val coordinates = when {
+            address.contains("berlin", ignoreCase = true) -> Pair(52.520008, 13.404954)
+            address.contains("munich", ignoreCase = true) -> Pair(48.137154, 11.576124)
+            address.contains("hamburg", ignoreCase = true) -> Pair(53.551086, 9.993682)
+            address.contains("cologne", ignoreCase = true) -> Pair(50.937531, 6.960279)
+            address.contains("frankfurt", ignoreCase = true) -> Pair(50.110922, 8.682127)
+            else -> null
+        }
+        
+        coordinates?.let { (lat, lng) ->
+            loadFuelPrices(latitude = lat, longitude = lng)
+        }
+    }
 }
 
 /**
@@ -134,5 +157,6 @@ data class FuelUiState(
     val longitude: Double = 13.404954,
     val searchRadius: Int = 5,
     val sortByPrice: Boolean = false,
-    val hasLocationPermission: Boolean = false
+    val hasLocationPermission: Boolean = false,
+    val address: String = ""
 )

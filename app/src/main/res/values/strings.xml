@@ -23,6 +23,9 @@
     <string name="sort_by_price">Show Cheapest First</string>
     <string name="location_permission_needed">Location permission is needed to find nearby stations</string>
     <string name="grant_permission">Grant Permission</string>
+    <string name="enter_address">Enter Address</string>
+    <string name="address_hint">e.g. Berlin, Munich, Hamburg</string>
+    <string name="address_examples">Try: Berlin, Munich, Hamburg, Cologne, Frankfurt</string>
 
     <!-- Fuel Types -->
     <string name="diesel">Diesel</string>

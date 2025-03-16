@@ -1,0 +1,43 @@
+<resources>
+    <string name="app_name">Fuel Price Tracker</string>
+
+    <!-- Navigation -->
+    <string name="nav_main">Fuel Prices</string>
+    <string name="nav_info">Information</string>
+
+    <!-- Main Screen -->
+    <string name="fuel_stations">Fuel Stations</string>
+    <string name="loading">Loading fuel prices…</string>
+    <string name="error_loading">Failed to load fuel prices. Please try again.</string>
+    <string name="retry">Retry</string>
+    <string name="no_stations">No fuel stations found</string>
+    <string name="filter_by_fuel">Filter by fuel type</string>
+    <string name="distance">Distance: %1$s km</string>
+    <string name="price">%1$s €/L</string>
+
+    <!-- Location -->
+    <string name="location_selector">Your Location</string>
+    <string name="current_location">Use Current Location</string>
+    <string name="search_radius">Search Radius</string>
+    <string name="radius_km">%1$s km</string>
+    <string name="sort_by_price">Show Cheapest First</string>
+    <string name="location_permission_needed">Location permission is needed to find nearby stations</string>
+    <string name="grant_permission">Grant Permission</string>
+
+    <!-- Fuel Types -->
+    <string name="diesel">Diesel</string>
+    <string name="e10">E10</string>
+    <string name="supere10">Premium</string>
+    <string name="all_types">All Types</string>
+
+    <!-- Info Screen -->
+    <string name="info_title">About Fuel Prices</string>
+    <string name="info_fuel_types">Fuel Types</string>
+    <string name="info_diesel">Diesel: A fuel used in diesel engines, typically more efficient for long distances.</string>
+    <string name="info_e10">E10: Contains up to 10% renewable ethanol, suitable for most modern petrol cars.</string>
+    <string name="info_super">Premium: Premium unleaded petrol with higher octane rating for better performance.</string>
+    <string name="info_pricing">How Pricing Works</string>
+    <string name="info_pricing_text">Fuel prices are set by individual stations based on factors like crude oil prices, taxes, and local competition. Prices typically update daily.</string>
+    <string name="info_api">API Information</string>
+    <string name="info_api_text">This app uses the Tankerkönig API to fetch real-time fuel prices from stations across Germany. Data is refreshed regularly to provide the most current prices.</string>
+</resources>
